@@ -18,14 +18,15 @@ export default function ModeToggle() {
         <Button
             variant="ghost"
             size="sm"
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="flex items-center justify-center"
             aria-label="Toggle Dark Mode"
         >
             {theme === "light" ? (
-                <Moon className="w-4 h-4" />
-            ) : (
                 <Sun className="w-4 h-4" />
+            ): (
+                    <Moon className = "w-4 h-4" />
+                
             )}
         </Button>
     );
