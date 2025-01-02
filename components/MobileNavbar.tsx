@@ -20,7 +20,8 @@ async function MobileNavbar() {
     const user = await currentUser();
     return (
         <div className=' md:hidden flex  gap-x-2 '>
-            <ModeToggle />
+              <ModeToggle />
+         
             <Sheet>
                 <SheetTrigger><Menu /></SheetTrigger>
                 <SheetContent>
