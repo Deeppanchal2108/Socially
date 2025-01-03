@@ -6,9 +6,9 @@ export async function syncAction() {
     try {
         const { userId} = await auth()
         const user = await currentUser()
-        console.log("User id : ", userId)
-        console.log("-----------------------------------------------------------------------------------------")
-        console.log("User : ", user)
+        // console.log("User id : ", userId)
+        // console.log("-----------------------------------------------------------------------------------------")
+        // console.log("User : ", user)
         if (!userId || !user) {
             return {success:false,message:"User not found"}
         }
@@ -30,6 +30,7 @@ export async function syncAction() {
                 image:user.imageUrl
             }
         })
+        console.log("Done creating user")
         return { success: true, message: "Done",user:newUser }
     } catch (e) {
         return { success: false, message:"Error caught" }
