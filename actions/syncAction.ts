@@ -44,3 +44,23 @@ console.log("Already user:", alreadyUser);
         return { success: false, message: "Error caught" };
     }
 }
+
+export async function getUserData(clerkId: string) {
+ 
+      
+          return await prisma.user.findUnique({
+                where: { clerkId },
+                include: {
+                    _count: {
+                        select: {
+                            followers: true,
+                            following: true,
+                            posts:true,
+                        }
+                    }
+                }
+            });
+       
+    
+  }
+    
