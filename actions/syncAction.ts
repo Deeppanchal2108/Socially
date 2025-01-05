@@ -11,13 +11,13 @@ export async function syncAction() {
             console.error("Missing userId or user data:", { userId, user });
             return { success: false, message: "User not found" };
         }
-        console.log("Data for new user creation:", {
-            clerkId: userId,
-            email: user.emailAddresses[0]?.emailAddress,
-            name: `${user.firstName || ""} ${user.lastName || ""}`,
-            username: user.username ?? user.emailAddresses[0]?.emailAddress.split("@")[0],
-            image: user.imageUrl,
-        });
+        // console.log("Data for new user creation:", {
+        //     clerkId: userId,
+        //     email: user.emailAddresses[0]?.emailAddress,
+        //     name: `${user.firstName || ""} ${user.lastName || ""}`,
+        //     username: user.username ?? user.emailAddresses[0]?.emailAddress.split("@")[0],
+        //     image: user.imageUrl,
+        // });
         
         const alreadyUser = await prisma.user.findUnique({
             where: { clerkId: userId }
@@ -64,3 +64,13 @@ export async function getUserData(clerkId: string) {
     
   }
     
+
+export async function getUserId(clerkId: string) {
+    const user= await prisma.user.findUnique({
+        where: { clerkId }
+    })
+    if (!user?.id) {
+        throw new Error("Something went wrong")
+    }
+    return user?.id;
+  }

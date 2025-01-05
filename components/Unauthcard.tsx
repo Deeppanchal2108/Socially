@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 import { SignInButton,SignUpButton } from '@clerk/nextjs'
 function Unauthcard() {
     return (
-        <Card>
+        <Card className='sticky top-20'>
             <CardHeader>
                 <CardTitle className='text-center font-extrabold'>Welcome Back!</CardTitle>
                 <CardDescription className='text-center'>Login to access your profile and connect with others</CardDescription>

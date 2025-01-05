@@ -24,7 +24,7 @@ async function Sidebar() {
 
 console.log(userData)
   return (
-      <Card className='p-2'>
+      <Card className='px-2 sticky top-20'>
           <CardHeader >
               <Link href={`/profile/${userData.username}`} passHref>
               <div className='flex gap-y-3 justify-center flex-col items-center'>
