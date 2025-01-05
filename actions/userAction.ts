@@ -18,11 +18,11 @@ export async function syncAction() {
         //     username: user.username ?? user.emailAddresses[0]?.emailAddress.split("@")[0],
         //     image: user.imageUrl,
         // });
-        
+
         const alreadyUser = await prisma.user.findUnique({
             where: { clerkId: userId }
         });
-console.log("Already user:", alreadyUser);
+        // console.log("Already user:", alreadyUser);
         if (alreadyUser) {
             return { success: false, message: "User already exists" };
         }
@@ -46,31 +46,80 @@ console.log("Already user:", alreadyUser);
 }
 
 export async function getUserData(clerkId: string) {
- 
-      
-          return await prisma.user.findUnique({
-                where: { clerkId },
-                include: {
-                    _count: {
-                        select: {
-                            followers: true,
-                            following: true,
-                            posts:true,
-                        }
-                    }
+
+
+    return await prisma.user.findUnique({
+        where: { clerkId },
+        include: {
+            _count: {
+                select: {
+                    followers: true,
+                    following: true,
+                    posts: true,
                 }
-            });
-       
-    
-  }
-    
+            }
+        }
+    });
+
+
+}
+
 
 export async function getUserId(clerkId: string) {
-    const user= await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: { clerkId }
     })
     if (!user?.id) {
         throw new Error("Something went wrong")
     }
     return user?.id;
-  }
+}
+
+export async function getRandomUser(clerkId: string) {
+    try {
+        const user = await prisma.user.findUnique({
+            where: { clerkId }
+        })
+        const id = user?.id;
+        const users = await prisma.user.findMany({
+            where: {
+                AND: [
+                    {
+                        NOT: {
+                            id: id
+                        }
+                    },
+                    {
+                        NOT: {
+                            followers: {
+                                some: {
+                                    followerId: id
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            select: {
+                id: true,
+                name: true,
+                username: true,
+                image: true,
+                _count: {
+                    select: {
+                        followers:true
+                    }
+                }
+            }
+            ,take:3
+        })
+        console.log("Fetched random users : ",users)
+        return users;
+
+    } catch (error) {
+        console.log("Error in getting random user : ", error)
+        return [];
+
+    }
+
+}

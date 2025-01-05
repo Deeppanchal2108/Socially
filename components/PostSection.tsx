@@ -14,7 +14,7 @@ import { PostContent } from '@/actions/postAction'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from './ui/button'
-import { getUserData, getUserId } from '@/actions/syncAction'
+import { getUserId } from '@/actions/userAction'
 import { addPost } from '@/actions/postAction'
 function PostSection() {
     const user = useUser()
@@ -22,7 +22,7 @@ function PostSection() {
     const [imageUrl, setImageUrl] = useState("")
     const [showPhotoUpload, setShowPhotoUpload] = useState(false);
     const [isPosting, setIsPosting] = useState(false);
-    const handle = async (e:any) => {
+    const handle = async (e: any) => {
         try {
             console.log("inside thee fucntion call ")
             e.preventDefault();
@@ -39,14 +39,14 @@ function PostSection() {
             }
             console.log("got userid ")
             const result = await addPost(detail);
-            console.log("Result : ",result)
+            console.log("Result : ", result)
             if (result.success) {
                 console.log("Post added successfully ")
                 toast.success('Posted successfully')
             } else {
                 toast.error('Something went wrong')
                 throw new Error("result not got")
-               
+
             }
 
         } catch (error) {
@@ -79,7 +79,7 @@ function PostSection() {
 
                 <Button className='' variant={"default"}
                     disabled={caption === ""}
-                    onClick={(e)=>handle(e)}
+                    onClick={(e) => handle(e)}
                 >
                     <Send />
                     Post
