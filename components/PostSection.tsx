@@ -39,7 +39,7 @@ function PostSection() {
             }
             console.log("got userid ")
             const result = await addPost(detail);
-            console.log("Result : ", result)
+            // console.log("Result : ", result)
             if (result.success) {
                 console.log("Post added successfully ")
                 toast.success('Posted successfully')

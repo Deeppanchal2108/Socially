@@ -27,3 +27,54 @@ export async function addPost(content: PostContent) {
     }
     
 }
+
+export async function getPosts() {
+    try {
+        const posts = await prisma.post.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
+            include: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        image: true,
+                        username: true,
+                    },
+                },
+                comments: {
+                    include: {
+                        author: {
+                            select: {
+                                id: true,
+                                username: true,
+                                image: true,
+                                name: true,
+                            },
+                        },
+                    },
+                    orderBy: {
+                        createdAt: "asc",
+                    },
+                },
+                likes: {
+                    select: {
+                        userId: true,
+                    },
+                },
+                _count: {
+                    select: {
+                        likes: true,
+                        comments: true,
+                    },
+                },
+            },
+        });
+
+        return posts;
+    } catch (error) {
+        console.log("Error in getPosts", error);
+        throw new Error("Failed to fetch posts");
+    }
+}
