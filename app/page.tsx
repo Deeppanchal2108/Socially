@@ -3,6 +3,7 @@ import PostSection from "@/components/PostSection";
 import { currentUser } from "@clerk/nextjs/server";
 import WhoToFollow from "@/components/WhoToFollow";
 import { getPosts } from "@/actions/postAction";
+import { getDbUserId } from "@/actions/userAction";
 export default async function Home() {
   const user = await currentUser();
   const posts = await getPosts()
@@ -12,8 +13,8 @@ export default async function Home() {
       <div className="lg:col-span-8">
         <div className="flex flex-col gap-y-4">
           <PostSection />
-          {posts.map((map) => (
-            <Post/>
+          {posts.map((post) => (
+            <Post key={post.id} post={post} dbUserId={getDbUserId}/>
           ))}
         </div>
       </div>
