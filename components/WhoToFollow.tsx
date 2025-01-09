@@ -10,7 +10,7 @@ import {
 import FollowButton from './FollowButton'
 
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
-import { Button } from './ui/button';
+
 async function WhoToFollow() {
   const user = await currentUser();
   const randomUser = await getRandomUser(user?.id || "");
