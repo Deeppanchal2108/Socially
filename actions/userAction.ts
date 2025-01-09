@@ -85,11 +85,11 @@ export async function getRandomUser(clerkId: string) {
         const users = await prisma.user.findMany({
             where: {
                 AND: [
-                    // {
-                    //     NOT: {
-                    //         id: id
-                    //     }
-                    // },
+                    {
+                        NOT: {
+                            id: id
+                        }
+                    },
                     {
                         NOT: {
                             followers: {
