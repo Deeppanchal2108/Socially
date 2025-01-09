@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sheet"
 import { LogIn } from 'lucide-react';
 import { LogOut } from 'lucide-react';
-import { SignedIn, SignInButton, SignedOut, SignOutButton } from "@clerk/nextjs";
+import { SignedIn, SignInButton, SignOutButton } from "@clerk/nextjs";
 import { CircleUser, Bell, Home } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
